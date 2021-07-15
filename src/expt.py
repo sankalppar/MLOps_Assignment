@@ -1,9 +1,9 @@
 import dvc.api
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
 from sklearn import metrics
 import joblib
 import json
+from sklearn.ensemble import RandomForestClassifier
 
 with dvc.api.open(repo = "https://github.com/sankalppar/MLOps_Assignment", path = "data/creditcard.csv") as fd:
     df = pd.read_csv(fd)
@@ -12,7 +12,7 @@ with dvc.api.open(repo = "https://github.com/sankalppar/MLOps_Assignment", path 
     train.to_csv("../data/processed/train.csv")
     test.to_csv("../data/processed/test.csv")
 df_train = pd.read_csv("../data/processed/train.csv")
-clf = DecisionTreeClassifier(criterion = "entropy")
+clf = RandomForestClassifier(criterion = "entropy")
 clf = clf.fit(df_train.drop("Class", axis = 1), df_train["Class"])
 joblib.dump(clf, "../models/model.pkl")
 df_test = pd.read_csv("../data/processed/test.csv")
