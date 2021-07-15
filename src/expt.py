@@ -5,12 +5,12 @@ from sklearn import metrics
 import joblib
 import json
 
-#with dvc.api.open(repo = "https://github.com/sankalppar/MLOps_Assignment", path = "data/creditcard.csv") as fd:
-#    df = pd.read_csv(fd)
-#    train = df.sample(frac=0.8,random_state=200)
-#    test = df.drop(train.index)
-#    train.to_csv("../data/processed/train.csv")
-#    test.to_csv("../data/processed/test.csv")
+with dvc.api.open(repo = "https://github.com/sankalppar/MLOps_Assignment", path = "data/creditcard.csv") as fd:
+    df = pd.read_csv(fd)
+    train = df.sample(frac=0.8,random_state=200)
+    test = df.drop(train.index)
+    train.to_csv("../data/processed/train.csv")
+    test.to_csv("../data/processed/test.csv")
 df_train = pd.read_csv("../data/processed/train.csv")
 clf = DecisionTreeClassifier(criterion = "entropy")
 clf = clf.fit(df_train.drop("Class", axis = 1), df_train["Class"])
